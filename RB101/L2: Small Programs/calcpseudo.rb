@@ -41,6 +41,13 @@ LOOP
 
 PRINT "What's your Annual Percentage Rate (APR)? Ex.: 5, 10, 12.3, 12.5"
 
+LOOP
+  GET/SET annual_interest
+    IF annual_interest is empty or less than 1 (per book)
+      PRINT "Please enter a valid amount"
+    ELSE
+      break
+
 GET, SET monthly_interest = (user input).to_f / 1200
 
 PRINT "How many years is the duration of your loan? 
@@ -55,7 +62,7 @@ PRINT "Any leftover months?"
 
 loan_months = loan_months + gets.chomp.to_i
 
-payment = loan_amount * (monthly_interest / (1 - (1 + monthly_interest)**(-(loan_months))))
+payment = loan_amount * (monthly_interest / (1 - (1 + monthly_interest)**(-(months))))
 
 PRINT "your monthly payment is #{payment}!"
 
@@ -65,4 +72,4 @@ PRINT "your monthly payment is #{payment}!"
                        end
   for all prompts
 - they want it to loop for additional usages
-- 
+=end
