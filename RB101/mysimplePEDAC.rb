@@ -4,7 +4,7 @@ Attempting to rewrite the PEDAC template in an abbreviated form to assist with i
 Lot step make brain hurt; few simple step better in beginning.
 
 Problem 
-  - inputs + putputs
+  - inputs + outputs
   - explicit requirements + implicit requirements
   - boil it down to a few sentences
   - (optional: contextual rules (the "domain"))
