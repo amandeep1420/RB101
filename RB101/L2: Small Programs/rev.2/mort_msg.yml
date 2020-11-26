@@ -1,0 +1,8 @@
+welcome: "Welcome to the mortgage calculator!"
+what_loan: "What's your loan amount? Ex. 152.00, 321.32"
+invalid_num: "Hmm, that doesn't look like a valid number. Please enter a valid number."
+what_apr: "What's your APR? Ex. 5.5%, 2.8%, etc."
+what_duration: "What's your loan duration in years? Ex. 5.5, 2.3, etc."
+use_again: "Would you like to calculate another monthly payment? Enter Y if so!"
+thank_you: "Thank you for using the mortgage calculator!"
+bye: "Goodbye!"
