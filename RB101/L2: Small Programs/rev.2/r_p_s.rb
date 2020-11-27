@@ -21,17 +21,17 @@ end
 loop do
   player = ''
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
+    prompt("Choose one: #{RPS["gamevals"].keys.join(', ')}")
     player = gets.chomp
     
-    if VALID_CHOICES.include?(player)
+    if RPS["gamevals"].keys.include?(player)
       break
     else
       prompt("That's not a valid player.")
     end
   end
   
-  computer = VALID_CHOICES.sample
+  computer = RPS["gamevals"].keys.sample
   
   puts "You chose #{player}; Computer chose: #{computer}!"
   

@@ -1,13 +1,9 @@
-require 'pry'
 require 'yaml'
-
 RPS = YAML.load_file('rps_YAML.yml')
 
 def win?(first, second)
   RPS["gamevals"][first]["win"].include?(second)
 end
-
-binding.pry
 
 def display_results(player, computer)
   if win?(player, computer)
@@ -21,8 +17,10 @@ end
 
 def grand_winner?(p_count, c_count)
   if p_count == WINS_FOR_GRAND_WINNER
+    pause
     puts "You're the grand winner!"
   elsif c_count == WINS_FOR_GRAND_WINNER
+    pause
     puts "The computer is the grand winner!"
   end
 end
@@ -43,54 +41,78 @@ end
 def current_score(name, p_count, c_count)
   puts "The current score is...\n#{name}: #{p_count}\nComputer: #{c_count}"
   pause
-  puts "I wonder who will win?"
-  pause
+  puts "I wonder who will be the grand winner?"
+  2.times { pause }
 end
 
-VALID_CHOICES = %w( rock paper scissors lizard spock )
-VALID_ABBREV = {
-  "s" => "scissors",
-  "p" => "paper",
-  "r" => "rock",
-  "l" => "lizard",
-  "V" => "spock"
-}
+def return_gameval_from_abb(player)
+  RPS["abb_gamevals"][player]
+end
+
+def invalid_name(name)
+  name.empty? || name.length < 2
+end
+
+def valid_choice?(player)
+  RPS['gamevals'].key?(player) || RPS['abb_gamevals'].key?(player)
+end
+
 WINS_FOR_GRAND_WINNER = 5
+ABB_EXPLAIN = <<-MSG
+r = rock
+   p = paper
+   s = scissors
+   l = lizard
+   v = spock (hello, fellow vulcan!)
+MSG
 
 p_count = 0
 c_count = 0
 name = ''
 play_counter = 0
 
+# program begins!
+
 prompt(RPS['welcome'])
 
+loop do
+  pause
+  prompt(RPS['your_name'])
+  name = gets.chomp
+  if invalid_name(name)
+    prompt(RPS["wrong_name"])
+  else
+    break
+  end
+end
+
+prompt(RPS['thanks_name'] + name + "!")
+
 pause
 
-prompt(RPS['your_name'])
-name = gets.chomp
-
-pause
-
-prompt(RPS['thanks_name'])
-
-pause
-
-loop do 
+loop do
   reset_view if play_counter > 0
   pause if play_counter > 0
   current_score(name, p_count, c_count) if play_counter > 0
-  
+
   player = ''
   loop do
-    prompt("Choose one: #{RPS["gamevals"].keys.join(', ')}")
-    player = gets.chomp
+    prompt("Choose one: #{RPS['gamevals'].keys.join(', ')}")
+    prompt("You may also type #{RPS['abb_gamevals'].keys.join(', ')}")
+    2.times { pause }
+    prompt(ABB_EXPLAIN)
+    player = gets.downcase.chomp
 
-    if RPS["gamevals"].has_key?(player)
+    if valid_choice?(player)
       break
     else
-      prompt("That's not a valid choice. Let's try again")
+      prompt(RPS['invalid_choice'])
       pause
     end
+  end
+
+  if player.length == 1
+    player = return_gameval_from_abb(player)
   end
 
   computer = RPS["gamevals"].keys.sample
@@ -99,7 +121,7 @@ loop do
   pause
   puts "...Computer chose: #{computer}!"
   pause
-  
+
   display_results(player, computer)
 
   if win?(player, computer)
@@ -110,9 +132,9 @@ loop do
 
   grand_winner?(p_count, c_count)
 
-  pause
-  
   play_counter += 1
+
+  2.times { pause }
 
   prompt(RPS['again'])
   answer = gets.chomp
@@ -127,24 +149,4 @@ pause
 
 prompt(RPS['bye'])
 
-
-
-
-
-# gamevals:  
-#   "rock":
-#     win: ["scissors", "lizard"]
-#   "paper":
-#     win: ["rock", "spock"]
-#   "scissors":
-#     win: ["paper", "lizard"]
-#   "spock":
-#     win: ["rock", "scissors"]
-#   "lizard":
-#     win: ["spock", "paper"]
-
-# welcome: "Welcome to my Rock-Paper-Scissors-Lizard-Spock game!"
-# your_name: "What's your name?"
-# thanks_name: "Thanks - it's nice to meet you!"
-# again: "Do you want to play again? Type 'y' if so!"
-# bye: "Thank you for playing. Good bye!"
+2.times { pause }
