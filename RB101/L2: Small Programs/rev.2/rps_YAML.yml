@@ -1,0 +1,18 @@
+gamevals:  
+  "rock":
+    win: ["scissors", "lizard"]
+  "paper":
+    win: ["rock", "spock"]
+  "scissors":
+    win: ["paper", "lizard"]
+  "spock":
+    win: ["rock", "scissors"]
+  "lizard":
+    win: ["spock", "paper"]
+  
+
+welcome: "Welcome to my Rock-Paper-Scissors-Lizard-Spock game!"
+your_name: "What's your name?"
+thanks_name: "Thanks - it's nice to meet you!"
+again: "Do you want to play again? Type 'y' if so!"
+bye: "Thank you for playing. Good bye!"

@@ -1,9 +1,5 @@
 VALID_CHOICES = ['rock', 'paper', 'scissors']
 
-def test_method
-  prompt('test message')
-end
-
 def display_results(player, computer)
   if player == 'rock' && computer == 'scissors' ||
       (player == 'paper' && computer == 'rock') ||
@@ -18,14 +14,9 @@ def display_results(player, computer)
   end
 end
 
-test_method
-
 def prompt(message)
   puts "=> #{message}"
 end
-
-test_method
-
 
 loop do
   player = ''
