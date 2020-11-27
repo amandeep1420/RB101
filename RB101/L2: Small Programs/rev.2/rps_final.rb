@@ -15,11 +15,11 @@ def display_results(player, computer)
   end
 end
 
-def grand_winner?(p_count, c_count)
-  if p_count == WINS_FOR_GRAND_WINNER
+def grand_winner?(p_wins, c_wins)
+  if p_wins == WINS_FOR_GRAND_WINNER
     pause
     puts "You're the grand winner!"
-  elsif c_count == WINS_FOR_GRAND_WINNER
+  elsif c_wins == WINS_FOR_GRAND_WINNER
     pause
     puts "The computer is the grand winner!"
   end
@@ -38,8 +38,8 @@ def reset_view
   system("cls")
 end
 
-def current_score(name, p_count, c_count)
-  puts "The current score is...\n#{name}: #{p_count}\nComputer: #{c_count}"
+def current_score(name, p_wins, c_wins)
+  puts "The current score is...\n#{name}: #{p_wins}\nComputer: #{c_wins}"
   pause
   puts "I wonder who will be the grand winner?"
   2.times { pause }
@@ -66,8 +66,8 @@ r = rock
    v = spock (hello, fellow vulcan!)
 MSG
 
-p_count = 0
-c_count = 0
+p_wins = 0
+c_wins = 0
 name = ''
 play_counter = 0
 
@@ -93,11 +93,12 @@ pause
 loop do
   reset_view if play_counter > 0
   pause if play_counter > 0
-  current_score(name, p_count, c_count) if play_counter > 0
+  current_score(name, p_wins, c_wins) if play_counter > 0
 
   player = ''
   loop do
     prompt("Choose one: #{RPS['gamevals'].keys.join(', ')}")
+    pause
     prompt("You may also type #{RPS['abb_gamevals'].keys.join(', ')}")
     2.times { pause }
     prompt(ABB_EXPLAIN)
@@ -125,12 +126,12 @@ loop do
   display_results(player, computer)
 
   if win?(player, computer)
-    p_count += 1
+    p_wins += 1
   elsif win?(computer, player)
-    c_count += 1
+    c_wins += 1
   end
 
-  grand_winner?(p_count, c_count)
+  grand_winner?(p_wins, c_wins)
 
   play_counter += 1
 
