@@ -97,9 +97,9 @@ loop do
 
   player = ''
   loop do
-    prompt("Choose one: #{RPS['gamevals'].keys.join(', ')}")
+    prompt("Choose one: #{RPS['gamevals'].keys.join(', ')} - or...")
     pause
-    prompt("You may also type #{RPS['abb_gamevals'].keys.join(', ')}")
+    prompt("...type #{RPS['abb_gamevals'].keys.join(', ')}. Guide below!")
     2.times { pause }
     prompt(ABB_EXPLAIN)
     player = gets.downcase.chomp
