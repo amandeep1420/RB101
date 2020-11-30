@@ -15,7 +15,7 @@ def display_results(player, computer)
   end
 end
 
-def grand_winner_determination(playerscore, computerscore)
+def display_grand_winner(playerscore, computerscore)
   if playerscore == WINS_FOR_GRAND_WINNER
     pause
     puts "You're the grand winner!"
@@ -43,6 +43,8 @@ def current_score(name, p_wins, c_wins)
   puts "The current score is...\n#{name}: #{p_wins}\nComputer: #{c_wins}"
   pause
   puts "I wonder who will be the grand winner?"
+  pause
+  puts "Remember: #{WINS_FOR_GRAND_WINNER} wins takes the title!"
   2.times { pause }
 end
 
@@ -109,8 +111,17 @@ def display_choices(player, computer)
   pause
 end
 
-def yes?(answer)
+def play_again?
+  prompt(RPS['again'])
+  answer = gets.chomp
   answer.downcase.include?('yes') && answer.length <= 5
+end
+
+def closing_statement(name)
+  prompt("No problem, #{name}!")
+  pause
+  prompt(RPS['bye'])
+  2.times { pause }
 end
 
 WINS_FOR_GRAND_WINNER = 5
@@ -157,21 +168,13 @@ loop do
 
   update_score(score, player, computer)
 
-  grand_winner_determination(score[:player], score[:computer])
+  display_grand_winner(score[:player], score[:computer])
 
   play_counter += 1
 
   2.times { pause }
 
-  prompt(RPS['again'])
-  answer = gets.chomp
-  break unless yes?(answer)
+  break unless play_again?
 end
 
-prompt("No problem, #{name}!")
-
-pause
-
-prompt(RPS['bye'])
-
-2.times { pause }
+closing_statement(name)
