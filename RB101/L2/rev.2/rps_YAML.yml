@@ -20,13 +20,13 @@ abb_gamevals:
   "v":
     "spock"
   "l":
-    "lizard" 
-
+    "lizard"
 
 welcome: "Welcome to my Rock-Paper-Scissors-Lizard-Spock game!"
-your_name: "What's your name?"
+your_name: "What's your first name?"
 wrong_name: "That can't be your name, silly."
 thanks_name: "Thanks - it's nice to meet you, "
+to_become: "wins to become the grand winner! Good luck!"
 invalid_choice: "That's not a valid choice. Let's try again."
-again: "Do you want to play again? Type 'y' if so!"
+again: "Do you want to play again? Type 'yes' if so!"
 bye: "Thank you for playing. Good bye!"
