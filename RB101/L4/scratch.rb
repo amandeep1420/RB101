@@ -175,15 +175,37 @@
 
 # note: new array returned here.
 
-def select_letter(string, letter)
+# def select_letter(string, letter)
+  
+#   selected_chars = ''
+#   counter = 0
+  
+#   loop do
+#     break if counter == string.length
+    
+#     selected_chars << string[counter] if string[counter] == letter
+    
+#     counter += 1
+#   end
+  
+#   selected_chars
+# end
+
+question = 'How many times does a particular character appear in this sentence?'
+# puts select_letter(question, 'a') == "aaaaaaaa"
+# puts select_letter(question, 't') == "ttttt"
+# puts select_letter(question, 'z') == ""
+
+
+
+def select_letter(sentence, character)
   
   selected_chars = ''
   counter = 0
   
   loop do
-    break if counter == string.length
-    
-    selected_chars << string[counter] if string[counter] == letter
+    break if counter == sentence.length
+    selected_chars << sentence[counter] if sentence[counter] == character
     
     counter += 1
   end
@@ -191,8 +213,6 @@ def select_letter(string, letter)
   selected_chars
 end
 
-question = 'How many times does a particular character appear in this sentence?'
 puts select_letter(question, 'a') == "aaaaaaaa"
 puts select_letter(question, 't') == "ttttt"
 puts select_letter(question, 'z') == ""
-
