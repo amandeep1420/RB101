@@ -134,25 +134,77 @@
 # good; peeked to see how they were handling the doubling, though. they declared a new variable in the loop to handle checking for
 # the specified criteria.
 
-def multiply(numbers, multiplier)
+# def multiply(numbers, multiplier)
   
-  new_numbers = []
-  counter = 0
+#   new_numbers = []
+#   counter = 0
   
-  loop do
-    break if counter == numbers.size
+#   loop do
+#     break if counter == numbers.size
     
-    current_number = numbers[counter]
+#     current_number = numbers[counter]
     
-    new_numbers << current_number * multiplier
+#     new_numbers << current_number * multiplier
     
-    counter += 1
-  end
+#     counter += 1
+#   end
   
-  new_numbers
-end
+#   new_numbers
+# end
 
-ya = [1, 2, 3, 4]
+# ya = [1, 2, 3, 4]
 
-puts multiply(ya, 3)
+# puts multiply(ya, 3)
 
+# def select_letter(string, character)
+  
+#   counter = 0
+#   char_string = ''
+  
+#   loop do
+#     break if counter == string.size
+    
+#     char_string << string[counter] if string[counter] == character
+    
+#     counter += 1
+#   end
+  
+#   char_string
+# end
+
+# phrase = 'This phrase has five z characters: zzzz'
+
+# puts select_letter(phrase, 'z').size
+
+
+# produce = {
+#   :apple => 'Fruit',
+#   :peach => 'Fruit',
+#   :orange => 'Fruit',
+#   :tomater => 'Vegetable',
+#   :daikon => 'Vegetable'
+# }
+
+# def get_produce(hash, criteria)
+  
+#   produce_keys = hash.keys
+#   counter = 0
+#   desired_produce = {}
+  
+#   loop do
+#     break if counter == produce_keys.size
+    
+#     current_key = produce_keys[counter]
+#     current_value = hash[current_key]
+    
+#     if current_value == criteria
+#       desired_produce[current_key] = current_value
+#     end
+    
+#     counter += 1
+#   end
+  
+#   desired_produce
+# end
+
+# puts get_produce(produce, 'Fruit')
