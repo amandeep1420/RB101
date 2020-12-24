@@ -217,5 +217,3 @@ puts result == q
 # but ranges implicitly refer to it...I know the wording is improper, but we get it
 # interesting - this was a fun one!
 
-
-
