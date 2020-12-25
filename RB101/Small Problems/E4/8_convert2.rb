@@ -13,23 +13,36 @@ DIGITS = {
 }
 
 
-def string_to_signed_integer(string)
+# def string_to_signed_integer(string)
   
-  negative_check = string[0]
+#   digit_array = string.chars.map { |digit| digit = DIGITS[digit] }.compact
+                
+#   integer = 0
   
-  string.delete!(string[0]) if string[0] == "-" || string[0] == '+'
+#   digit_array.each { |digit| integer = integer * 10 + digit }
   
-  digit_array = string.chars.map { |digit| digit = DIGITS[digit] }
+#   integer *= -1 if string[0] == '-'
+  
+#   integer
+# end
+
+def string_to_integer(string)
+  
+  digit_array = string.chars.map { |digit| digit = DIGITS[digit] }.compact
                 
   integer = 0
   
   digit_array.each { |digit| integer = integer * 10 + digit }
   
-  integer *= -1 if negative_check == '-'
-  
   integer
 end
 
+def string_to_signed_integer(string)
+  converted_string = string_to_integer(string)
+  string.start_with?('-') ? -converted_string : converted_string
+end
+  
+  
 puts string_to_signed_integer('4321') == 4321
 puts string_to_signed_integer('-570') == -570
 puts string_to_signed_integer('+100') == 100
