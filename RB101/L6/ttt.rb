@@ -21,6 +21,7 @@ INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 WINS_TO_CLEAR_GAME = 5
+WHO_GOES_FIRST = 'choose'
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +   # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +   # columns
                 [[1, 5, 9], [3, 5, 7]]                # diagonals
@@ -69,6 +70,10 @@ def joinor(arr, punc = ', ', word='or')
   end
 end
 
+def place_piece!(brd, player)
+  player == 'Player' ? player_places_piece!(brd) : computer_places_piece!(brd)
+end
+
 def player_places_piece!(brd)
   square = ''
   loop do
@@ -80,8 +85,8 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def find_at_risk_square(line, board)
-  if board.values_at(*line).count(PLAYER_MARKER) == 2
+def find_a_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
     board.select { |k,v| line.include?(k) && v == INITIAL_MARKER }.keys.first
   else
     nil
@@ -90,14 +95,26 @@ end
 
 def computer_places_piece!(brd)
   square = nil
+  
   WINNING_LINES.each do |line|
-    square = find_at_risk_square(line, brd)
+    square = find_a_square(line, brd, COMPUTER_MARKER)  # attack
     break if square
   end
 
   if !square
-    square = empty_squares(brd).sample
+    WINNING_LINES.each do |line|
+      square = find_a_square(line, brd, PLAYER_MARKER)  # defend
+      break if square
+    end
   end
+  
+  if !square
+    square = 5 if empty_squares(brd).include?(5)        # choose 5
+  end
+  
+  if !square
+    square = empty_squares(brd).sample                  # choose random
+  end  
 
   brd[square] = COMPUTER_MARKER
 end
@@ -148,6 +165,33 @@ def overall_winner(player, computer)
   player == WINS_TO_CLEAR_GAME ? 'Player' : 'Computer'
 end
 
+def decide_first_turn(input)
+  case input
+  when 'player' then 'Player'
+  when 'computer' then 'Computer'
+  when 'choose'
+    prompt("Who will go first? (choices: player, computer)")
+    loop do
+      choice = gets.chomp
+      if choice.downcase == 'player'
+        return 'Player'
+      elsif choice.downcase == 'computer'
+        return 'computer'
+      else
+        prompt("That's not a valid choice. Please choose again.")
+      end
+    end
+  end
+end
+
+def place_piece!(brd, player)
+  player == 'Player' ? player_places_piece!(brd) : computer_places_piece!(brd)
+end
+
+def alternate_player(player)
+  player == 'Player' ? 'Computer' : 'Player'
+end
+
 # beginning of game execution logic
 
 loop do
@@ -155,17 +199,19 @@ loop do
   computer_wins = 0
   round_count = 1
   
+  turn_choice = WHO_GOES_FIRST
+  first_player = decide_first_turn(turn_choice)
+  current_player = first_player
+  
   loop do
     board = initialize_board
     next_round_announcement(round_count)
+    current_player = first_player
     
     loop do
       display_board(board)
-  
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
-  
-      computer_places_piece!(board)
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
       break if someone_won?(board) || board_full?(board)
     end
   
@@ -182,7 +228,9 @@ loop do
     break if grand_winner?(player_wins, computer_wins)
   end
   
-  prompt("#{overall_winner(player_wins, computer_wins)} won the game!")
+  victor = overall_winner(player_wins, computer_wins)
+  
+  prompt("#{victor} won the game!")
 
   prompt("Play again? (y or n)")
   answer = gets.chomp
