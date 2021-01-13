@@ -1,1 +1,6 @@
 welcome: "Welcome to 21! Let's begin."
+hand: "You have the following cards in your hand..."
+total: "...which comes out to the following total:"
+reveal: "The following card has been revealed from the dealer's hand:"
+decision: "Please type in your decision: hit, or stay?"
+invalid: "Invalid decision; please type hit or stay."
