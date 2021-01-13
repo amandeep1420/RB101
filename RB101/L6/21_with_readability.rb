@@ -5,9 +5,14 @@ VALUES = %w(2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
 SUITS = %w(Hearts Diamonds Clubs Spades)
 HIT = %w(hit h)
 STAY = %w(stay s)
+READABILITY_ADJUSTMENT = true
 
 def prompt(string) # format strings for terminal output to player
   puts "=> #{string}"
+end
+
+def pause(multiplier=1) # pauses during code execution for readability..
+  multiplier.times { sleep(0.5) } if READABILITY_ADJUSTMENT
 end
 
 def create_deck # create deck for instance of game
@@ -173,6 +178,7 @@ loop do # outer loop - set gameplay variables, display outcome, etc.
     revealed_card = reveal_card(dealer_hand)
 
     prompt(TXT['welcome'])
+    pause(2)
     display_summary_of_initial_hands(player_hand, revealed_card)
 
     loop do # innermost loop for player turn specifically
@@ -187,11 +193,15 @@ loop do # outer loop - set gameplay variables, display outcome, etc.
 
     break if player_busted
 
+    pause(2)
+    system("clear") if READABILITY_ADJUSTMENT
     prompt(TXT['dealer_turn'])
+    pause(2)
     deal(dealer_hand, deck) until total(dealer_hand) >= 17
     dealer_total = total(dealer_hand)
     dealer_round_summary(dealer_hand)
     dealer_busted = bust?(dealer_total)
+    pause(2)
     break
   end
 
