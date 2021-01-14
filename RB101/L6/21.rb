@@ -33,7 +33,7 @@ def reveal_card(hand) # determine revealed card from a hand
 end
 
 def display_summary_of_initial_hands(player, free_card) # displays game state
-  prompt(TXT['intro_hand'])                             # after first dealing
+  prompt(TXT['intro_hand'])                             # after first deal
   puts player
   prompt(TXT['intro_total'])
   puts total(player)
@@ -114,7 +114,7 @@ def dealer_round_summary(hand) # displays dealer's hand info after dealer turn
   puts total(hand)
 end
 
-def bust?(total) # returns true if argument value is greater than 21
+def bust?(total) # returns true if arg value (hand total) is greater than 21
   total > 21
 end
 
