@@ -5,6 +5,7 @@ VALUES = %w(2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
 SUITS = %w(Hearts Diamonds Clubs Spades)
 HIT = %w(hit h)
 STAY = %w(stay s)
+YES = %w(yes y)
 
 def prompt(string) # format strings for terminal output to player
   puts "=> #{string}"
@@ -199,7 +200,7 @@ loop do # outer loop - set gameplay variables, display outcome, etc.
 
   prompt(TXT['again'])
   answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
+  break unless YES.include?(answer.downcase)
 end
 
 prompt(TXT['thanks'])
