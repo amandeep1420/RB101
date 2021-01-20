@@ -31,11 +31,13 @@ def letter_percentages(string)
     end
   end
   
-  counts.transform_values { |count| count / char_count.to_f * 100 }
+  counts.transform_values { |count| format("%0.02f", count / char_count.to_f * 100) } # FE, always returns two decimal places though
 end
 
 letter_percentages('abCdef 123')
 
-puts letter_percentages('abCdef 123') == { lowercase: 50, uppercase: 10, neither: 40 }
-puts letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25 }
-puts letter_percentages('123') == { lowercase: 0, uppercase: 0, neither: 100 }
+# puts letter_percentages('abCdef 123') #== { lowercase: 50, uppercase: 10, neither: 40 }
+# puts letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25 }
+# puts letter_percentages('123') == { lowercase: 0, uppercase: 0, neither: 100 }
+
+puts letter_percentages('abcdefGHI')
