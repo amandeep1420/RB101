@@ -40,8 +40,8 @@ def friday_13th(year)
   until month == 13
     case Date.valid_date?(year, month, day)
     when true
-       count += 1 if Date.new(year, month, day).friday? && day == 13
-       day += 1
+      count += 1 if Date.new(year, month, day).friday? && day == 13
+      day += 1
     else 
       day = 1
       month += 1
@@ -50,9 +50,15 @@ def friday_13th(year)
   count
 end
 
-puts friday_13th(2015) == 3
-puts friday_13th(1986) == 1
-puts friday_13th(2019) == 2
+def friday_13th(year)
+  (1..12).to_a.each_with_object([]) do |month, count_arr|
+    count_arr << 1 if Date.new(year, month, 13).friday?
+  end.sum
+end
+
+puts friday_13th(2015) #== 3
+# puts friday_13th(1986) == 1
+# puts friday_13th(2019) == 2
   
   
   
