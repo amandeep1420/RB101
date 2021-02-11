@@ -27,18 +27,34 @@ C
 puts ">> Please enter an integer greater than 0:"
 last = gets.chomp.to_i
 
+until last > 0
+  puts ">> Invalid input; please enter an integer greater than 0:"
+  last = gets.chomp.to_i
+end
+
 puts ">> Enter 's' to compute the sum, 'p' to compute the product."
 op = gets.chomp.downcase
 
-range = (1..last)
+until op == 's' || op == 'p'
+  puts ">> Invalid input; please enter either 's' or 'p'."
+  op = gets.chomp.downcase
+end
 
 if op == 's'
-  answer = range.reduce(:+)
+  answer = 0
+  1.upto(last) { |num| answer += num }
   puts ">> The sum of the integers between 1 and #{last} is #{answer}."
 else
-  answer = range.reduce(:*)
+  answer = 1
+  1.upto(last) { |num| answer *= num }
   puts ">> The product of the integers between 1 and #{last} is #{answer}."
 end
 
+# I liked the range solution better anyway
+# ahhhhh, upto returns the number it was called on....so weird....it's also mutating, too
+# good to know, good to know
 
+
+
+# Integer#upto returns the number it was called on and is a mutating/destructive method
 
