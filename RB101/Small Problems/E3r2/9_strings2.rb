@@ -21,7 +21,7 @@ require 'pry'
 VALID = ('A'..'Z').to_a + ('a'..'z').to_a + ('0'..'9').to_a
 
 def real_palindrome?(string)
-  string = string.downcase.split('').select { |char| VALID.include?(char) }.join('')
+  string = string.downcase.delete("^a-z0-9")
   string == string.reverse
 end
 
