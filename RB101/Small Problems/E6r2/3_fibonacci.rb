@@ -14,3 +14,18 @@ D
   - array? or a looping mechanism with a counter..would be easier but less elegant
 A
   - 
+  
+C
+=end
+
+def find_fibonacci_index_by_length(count)
+  fibs = [1, 1]
+  index = 2
+  until fibs[1].to_s.size == count
+    fibs[0], fibs[1] = fibs[1], fibs.sum
+    index += 1
+  end
+  index
+end
+
+p find_fibonacci_index_by_length(100)
