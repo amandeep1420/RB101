@@ -22,6 +22,14 @@ def include?(arr, val)
   false
 end
 
+# book solution below:
+
+def include?(array, value)
+  !!array.index(value)
+end
+
+# why does this solution rub me the wrong way?
+
 p include?([1,2,3,4,5], 3) == true
 p include?([1,2,3,4,5], 6) == false
 p include?([], 3) == false
