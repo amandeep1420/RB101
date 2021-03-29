@@ -23,11 +23,18 @@ C
 =end
 
 def double_consonants(string)
-  string.split('').map { |char| char =~ /[^aeiou]/ && char =~ /[a-z]/i ? char * 2 : char }.join('')
+  string.split('').map { |char| char =~ /[a-z&&[^aeiou]]/i ? char * 2 : char }.join('')
 end
 
+# let's try without regex
+# we already viewed solutions; we'll save and try again a different day
+
+CONSONANTS = 
+
 p double_consonants('String') #== "SSttrrinngg"
-p double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
+p double_consonants("Hello-World!") #== "HHellllo-WWorrlldd!"
 p double_consonants("July 4th") == "JJullyy 4tthh"
 p double_consonants('') == ""
     
+# didn't know that you could use && within regex classes
+# didn't know that the order mattered [a-z&&[^aeiou]] worked, but [^aeiou&&[a-z]] didn't...the second one doubled the symbols as well
