@@ -21,11 +21,13 @@ C
 =end
 
 def transpose(array)
-  row_1, row_2, row_3 = array[0], array[1], array[2]
-  matrix = array
+  matrix = array.map { |row| row.map { |el| 0 } }
   
-  matrix.each_with_index do |subarr, row|
-    next if 
+  matrix.map.with_index do |subarr, idx1|
+    subarr.each_with_index do |element, idx2|
+      matrix[idx1][idx2] = array[idx2][idx1]
+    end
+  end
 end
 
 matrix = [
@@ -36,5 +38,5 @@ matrix = [
 
 new_matrix = transpose(matrix)
 
-p new_matrix #== [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
-# p matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
+p new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
+p matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
