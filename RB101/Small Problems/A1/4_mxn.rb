@@ -1,20 +1,32 @@
 =begin
 
 P
-  - this matrix stuff is really hard
+  - this matrix stuff is really hard...
+  - I understand how they transposed elements now, finally
   
   
 =end
 
-def transpose(array)
-  matrix = array.map { |row| row.map { |el| 0 } }
+# def transpose(array)
+#   matrix = array.map { |row| row.map { |el| 0 } }
   
-  matrix.map.with_index do |subarr, idx1|
-    subarr.each_with_index do |element, idx2|
-      matrix[idx1][idx2] = array[idx2][idx1]
-    end
+#   matrix.map.with_index do |subarr, idx1|
+#     subarr.each_with_index do |element, idx2|
+#       matrix[idx1][idx2] = array[idx2][idx1]
+#     end
+#   end
+# end
+
+
+def transpose(array)
+  rows, size = array.first.size, array.size
+  
+  (0...rows).each_with_object([]) do |row_idx, result|
+    result << (0...size).map { |column_idx| array[column_idx][row_idx] }
   end
 end
+
+
 
 matrix = [
   [1, 5, 8],
