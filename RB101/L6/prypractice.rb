@@ -28,9 +28,13 @@ end
 
 def double_evens(arr)
   arr.map do |num|
-    new_num = num.even? ? double_num(num) : num
+    num.even? ? double_num(num) : num
   end
 end
 
-p double_evens([1, 2, 3, 4, 5]) == [1, 4, 3, 8, 5]
+array = [1, 2, 3, 4, 5]
+
+binding.pry
+
+p double_evens(array) == [1, 4, 3, 8, 5]
 
