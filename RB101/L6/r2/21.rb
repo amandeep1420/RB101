@@ -89,9 +89,9 @@ def player_stayed?
   loop do
     prompt TXT['choice']
     choice = gets.chomp.downcase.delete("^a-z")
-    if choice.start_with?('s')
+    if choice == 's' || choice == 'stay'
       return true
-    elsif choice.start_with?('h')
+    elsif choice == 'h' || choice == 'hit'
       return false
     else
       prompt TXT['invalid']
@@ -157,7 +157,8 @@ end
 
 def another_round?
   prompt TXT['again']
-  gets.chomp.downcase.delete("^a-z").start_with?('y')
+  answer = gets.chomp.downcase.delete("^a-z")
+  answer == 'yes' || answer == 'y'
 end
 
 def announce_grand_winner(grand_winner)
