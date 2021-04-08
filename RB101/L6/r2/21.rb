@@ -7,20 +7,41 @@ CARDS = (2..10).map(&:to_s).concat(FACES).freeze
 SUITS = %w(Hearts Diamonds Clubs Spades)
 MAX_TOTAL = 21
 MIN_DEALER_TOTAL = 17
+POINTS_FOR_GRAND_WIN = 5
 
 def prompt(text)
   puts ">> #{text}"
 end
 
-def continue_execution
+def clear_screen
+  system 'clear'
+end
+
+def any_key_continue
   print "Press ANY KEY to continue."
   STDIN.getch
   print "\n"
   system("clear")
 end
 
+def summary(scores)
+  if !scores.values.all?(0)
+    prompt TXT['next_round']
+    scores.each { |player, score| puts "#{player.capitalize}: #{score}" }
+    prompt TXT['dealing']
+  else
+    prompt "#{TXT['welcome']} #{TXT['dealing']}"
+  end
+  any_key_continue
+end
+
 def build_a_deck
   SUITS.each_with_object({}) { |suit, hash| hash[suit] = CARDS.dup }
+end
+
+def initial_hands(hands, deck)
+  deal(hands[:player], deck, 2)
+  deal(hands[:dealer], deck, 2)
 end
 
 def deal(hand, deck, n=1)
@@ -32,152 +53,171 @@ def deal(hand, deck, n=1)
   end
 end
 
+def initial_totals(hands, totals)
+  totals[:player] = total(hands[:player])
+  totals[:dealer] = total(hands[:player])
+end
+
 def total(hand)
   values = hand.map { |card| card.split(' ').first }
   aces, values = values.partition { |value| value == 'Ace' }
 
-  num_total = values.map do |value|
-                FACES.include?(value) ? 10 : value.to_i
-              end.sum
+  num_total = values.map { |val| FACES.include?(val) ? 10 : val.to_i }.sum
 
   aces.size.times do
     num_total += (num_total < 11 ? 11 : 1)
   end
-  
+
   num_total
 end
 
-def summary_of_initial_deal(player_hand, revealed_card)
+def summary_of_initial_deal(hands, revealed_card)
   prompt(TXT['player_cards'])
-  puts player_hand
-  
+  puts hands[:player]
+
   prompt(TXT['revealed_card'])
   puts revealed_card
+
+  prompt TXT['player_turn']
+end
+
+def score_reminder(totals)
+  prompt "#{TXT['player_total']} #{totals[:player]}!"
 end
 
 def player_stayed?
-  prompt TXT['choice']
-  gets.chomp.downcase.delete("^a-z").start_with?('s')
+  loop do
+    prompt TXT['choice']
+    choice = gets.chomp.downcase.delete("^a-z")
+    if choice.start_with?('s')
+      return true
+    elsif choice.start_with?('h')
+      return false
+    else
+      prompt TXT['invalid']
+    end
+  end
 end
 
 def busted?(total)
   total > MAX_TOTAL
 end
 
-def reveal_hands(player_hand, dealer_hand)
-  prompt TXT['end_hand_player']
-  puts player_hand
-  
-  prompt TXT['end_hand_dealer']
-  puts dealer_hand
-  
-  continue_execution
+def bust_announcement(hands)
+  prompt TXT['player_busted']
+  puts hands[:player]
 end
 
-def announce_round_winner(player_total, dealer_total)
-  return (prompt(TXT['player_busted'])) if busted?(player_total)
-  return (prompt(TXT['dealer_busted'])) if busted?(dealer_total)
-  
-  if player_total > dealer_total
-    prompt "#{TXT['player_won']} with a total of #{player_total}!"
-  elsif dealer_total > player_total
-    prompt "#{TXT['dealer_won']} with a total of #{dealer_total}!"
+def dealer_turn
+  prompt TXT['dealer_turn']
+  any_key_continue
+end
+
+def outcome_calculation(totals)
+  return 'player_busted' if busted?(totals[:player])
+  return 'dealer_busted' if busted?(totals[:dealer])
+
+  if totals[:player] > totals[:dealer]
+    'player_won'
+  elsif totals[:dealer] > totals[:player]
+    'dealer_won'
   else
-    prompt TXT['tie']
+    'tie'
   end
 end
 
-def increment_points(player_points, dealer_points)
-  if player_points > dealer_points
-    player_points += 1
-  elsif dealer_points > player_points
-    dealer_points += 1
+def reveal_outcome(hands, totals, outcome)
+  prompt TXT['end_hand_player']
+  puts hands[:player]
+
+  prompt TXT['end_hand_dealer']
+  puts hands[:dealer]
+
+  any_key_continue
+
+  prompt "#{TXT[outcome]} Your hand total was #{totals[:player]}. "\
+  "The Dealer's hand total was #{totals[:dealer]}.\n"
+end
+
+def increment_points(scores, outcome)
+  if outcome == 'tie'
+    nil
+  elsif outcome == 'dealer_busted' || outcome == 'player_won'
+    scores[:player] += 1
+  else
+    scores[:dealer] += 1
   end
 end
 
-def grand_winner_status(player_points, dealer_points)
-  return 'player' if player_points == 5
-  return 'dealer' if dealer_points == 5
+def find_grand_winner(scores)
+  return 'player' if scores[:player] == POINTS_FOR_GRAND_WIN
+  return 'dealer' if scores[:dealer] == POINTS_FOR_GRAND_WIN
   nil
 end
 
-def play_again?
+def another_round?
   prompt TXT['again']
-  gets.chomp.downcase.start_with?('y')
+  gets.chomp.downcase.delete("^a-z").start_with?('y')
 end
 
 def announce_grand_winner(grand_winner)
   case grand_winner
   when 'player' then prompt TXT['player_grand']
   when 'dealer' then prompt TXT['dealer_grand']
-  else nil
   end
 end
+
+def thank_you
+  prompt TXT['thanks']
+end
+
+# end of methods
+
+scores = { player: 0, dealer: 0 }
+grand_winner = nil
 
 loop do
-  player_points = 0
-  dealer_points = 0
-  grand_winner = nil
-  
+  deck = build_a_deck
+  hands = { player: [], dealer: [] }
+  totals = { player: 0, dealer: 0 }
+
+  clear_screen
+  summary(scores)
+
+  initial_hands(hands, deck)
+  initial_totals(hands, totals)
+  revealed_card = hands[:dealer].sample
+  summary_of_initial_deal(hands, revealed_card)
+
   loop do
-    deck = build_a_deck
-    player_hand = []
-    dealer_hand = []
-    player_total = 0
-    dealer_total = 0
-  
-    system 'clear'
-    prompt TXT['welcome']
-
-    deal(player_hand, deck, 2)
-    deal(dealer_hand, deck, 2)
-    revealed_card = dealer_hand.sample
-
-    player_total = total(player_hand)
-    dealer_total = total(dealer_hand)
-    summary_of_initial_deal(player_hand, revealed_card)
-
-    prompt TXT['player_turn']
-    
-    loop do
-      prompt "#{TXT['player_total']} #{player_total}!"
-      break if player_stayed?
-      
-      deal(player_hand, deck)
-      player_total = total(player_hand)
-      break if player_total > MAX_TOTAL
-    end
-
-    if busted?(player_total)
-      prompt TXT['player_busted']
-      dealer_points += 1
-
-      if dealer_points == 5
-        grand_winner = 'dealer'
-        break
-      end
-      
-      play_again? ? next : break
-    end
-    
-    prompt TXT['dealer_turn']
-    continue_execution
-    
-    until dealer_total >= MIN_DEALER_TOTAL
-      deal(dealer_hand, deck)
-      dealer_total = total(dealer_hand)
-    end
-
-    reveal_hands(player_hand, dealer_hand)
-    announce_round_winner(player_total, dealer_total)
-    increment_points(player_points, dealer_points)
-    
-    grand_winner = grand_winner_status(player_points, dealer_points)
-    
-    break if grand_winner || !play_again?
+    score_reminder(totals)
+    break if player_stayed?
+    deal(hands[:player], deck)
+    totals[:player] = total(hands[:player])
+    break if totals[:player] > MAX_TOTAL
   end
 
-  announce_grand_winner(grand_winner)
-  prompt TXT['thanks']
-  break
+  if busted?(totals[:player])
+    bust_announcement(hands)
+    scores[:dealer] += 1
+    grand_winner = find_grand_winner(scores)
+    break if grand_winner
+    another_round? ? next : break
+  end
+
+  dealer_turn
+  until totals[:dealer] >= MIN_DEALER_TOTAL
+    deal(hands[:dealer], deck)
+    totals[:dealer] = total(hands[:dealer])
+  end
+
+  outcome = outcome_calculation(totals)
+  reveal_outcome(hands, totals, outcome)
+  increment_points(scores, outcome)
+  grand_winner = find_grand_winner(scores)
+
+  break if grand_winner || !another_round?
 end
+
+announce_grand_winner(grand_winner)
+thank_you
