@@ -23,13 +23,35 @@ C
 
 
 
-def find_primes(n1, n2)
-  (n1..n2).select do |num|
-    divisors = (2...num).to_a
-    clean_divisors = []
-    divisors.each { |divisor| clean_divisors << divisor if num % divisor == 0 }
-    clean_divisors.empty?
-  end
-end
+# def find_primes(n1, n2)
+#   (n1..n2).select do |num|
+#     divisors = (2...num).to_a
+#     clean_divisors = []
+#     divisors.each { |divisor| clean_divisors << divisor if num % divisor == 0 }
+#     clean_divisors.empty?
+#   end
+# end
 
-p find_primes(3, 10)
+# p find_primes(3, 10)
+
+=begin
+
+P
+  - create a loop
+  - counter 
+=end
+
+#~~~Lesson 2 scratch~~~
+
+puts <<-DOC # heredoc format
+dsadsa
+dsadsa
+asdasd
+DOC
+
+%w( cat bat hat these have single quotes)
+%W( cat bat hat these have double quotes)
+
+#require 'pry'
+#binding.pry
+
