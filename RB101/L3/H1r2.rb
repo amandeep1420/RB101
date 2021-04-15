@@ -41,7 +41,13 @@ p select_letter(question, 'z').size
 
 
 
+def solution (arr1, arr2)
+  arr1.zip(arr2).map { |pair| pair.inject { |n1, n2| (n1 - n2).abs**2 } }.sum.to_f / arr1.size
+end
 
+def solution (arr1, arr2)
+  arr1.map.with_index { |n, i| (n - arr2[i]).abs ** 2 }.sum.fdiv(arr1.length)
+end
 
 
 
