@@ -110,9 +110,9 @@ def minSubLength(arr, s)
 end
   
   
-p minSubLength([2,3,1,2,4,3], 7) #== 2
-p minSubLength([1, 10, 5, 2, 7], 9) #== 1
-p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) #== 4
+p minSubLength([2,3,1,2,4,3], 7) == 2
+p minSubLength([1, 10, 5, 2, 7], 9) == 1
+p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
 p minSubLength([1, 2, 4], 8) == 0
 
 
@@ -136,17 +136,16 @@ E
 D
   - arrays
 A
-  - initialize index variable to 1
   - iterate over index
     - if range from left, summed == range to right, summed, return current index
-  - return 0 if iteration completes with no returned index
+  - return -1 if iteration completes with no returned index
 C
 =end
 
 
 def find_even_index(arr)
   arr.each_index do |idx|
-    return idx if arr[0...idx].sum == arr[idx+1..-1].sum
+    return idx if arr[0...idx].sum == arr[idx + 1..-1].sum
   end
   -1
 end
