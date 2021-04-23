@@ -416,20 +416,20 @@ C
 
 # p kebabize('catHat32Bat')
 
-def fix_first_letter(words)
-  words.map do |word|
-    word = word.chars
-    code_parts, alpha_chars = word.partition { |char| char == char.to_i.to_s }
-    fixed_letter = code_parts.join.to_i.chr
-    fixed_letter
-    # rest_of_word = alpha_chars.join
-    # fixed_letter + rest_of_word
-  end
-end
+# def fix_first_letter(words)
+#   words.map do |word|
+#     word = word.chars
+#     code_parts, alpha_chars = word.partition { |char| char == char.to_i.to_s }
+#     fixed_letter = code_parts.join.to_i.chr
+#     fixed_letter
+#     # rest_of_word = alpha_chars.join
+#     # fixed_letter + rest_of_word
+#   end
+# end
 
 
 
-p fix_first_letter(['11cat', '22bat'])
+# p fix_first_letter(['11cat', '22bat'])
 
 
 # def decipher_this(string)
@@ -439,3 +439,8 @@ p fix_first_letter(['11cat', '22bat'])
 # end
 
 # p decipher_this('11cat')
+
+
+def array_diff(a, b)
+  a.select { |element| !b.include?(element) }
+end
