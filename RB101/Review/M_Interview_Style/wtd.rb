@@ -60,7 +60,7 @@ C
 #   reference = %w( bo xk dq cp na gt re fs jw hu vi ly zm )
   
 #   string = string.downcase
-  
+   
 #   reference.each { |block| return false if string.count(block) > 1 }
   
 #   true
@@ -892,15 +892,16 @@ C
 #   -1
     
 # end
-  
-  
 
-# p next_num(12) #== 21
-# p next_num(513) #== 531
-# p next_num(2017) #== 2071
-# p next_num(9) == -1
-# p next_num(111) == -1
-# p next_num(531) == -1
+# Write a method that takes a positive integer and returns the next biggest
+# number formed by the same digits; return -1 if no such number exists.
+
+# next_num(12) == 21
+# next_num(513) == 531
+# next_num(2017) == 2071
+# next_num(9) == -1
+# next_num(111) == -1
+# next_num(531) == -1
 
 =begin
 
@@ -1071,18 +1072,20 @@ C
 #   str1_subs.each { |string| return true if str2_subs.include?(string) }
 #   false
 # end
-  
+
+# Given two strings, return true if there is a substring that appears in both strings; 
+# return false otherwise. Substrings must be a minimum of two letters l
   
 
-# p substring_test('Something', 'Fun') == false
-# p substring_test('Something', 'Home') == true
-# p substring_test('Something', '') == false
-# p substring_test('', 'Something') == false
-# p substring_test('BANANA', 'banana') == true
-# p substring_test('test', 'lllt') == false
-# p substring_test('', '') == false
-# p substring_test('1234567', '541265') == true
-# p substring_test('supercalifragilisticexpialidocious', 'SoundOfItIsAtriciou') == true
+# substring_test('Something', 'Fun') == false
+# substring_test('Something', 'Home') == true
+# substring_test('Something', '') == false
+# substring_test('', 'Something') == false
+# substring_test('BANANA', 'banana') == true
+# substring_test('test', 'lllt') == false
+# substring_test('', '') == false
+# substring_test('1234567', '541265') == true
+# substring_test('supercalifragilisticexpialidocious', 'SoundOfItIsAtriciou') == true
 
 =begin
 
@@ -1122,14 +1125,16 @@ C
 #   true
 # end
   
+# Write a method that returns true if a portion of the first input string's characters
+# can be rearranged to match the second input string; return false otherwise.
   
 
-# p scramble('javaass', 'jjss') == false
-# p scramble('rkqodlw', 'world') == true
-# p scramble('cedewaraaossoqqyt', 'codewars') == true
-# p scramble('katas', 'steak') == false
-# p scramble('scriptjava', 'javascript') == true
-# p scramble('scriptingjava', 'javascript') == true
+# scramble('javaass', 'jjss') == false
+# scramble('rkqodlw', 'world') == true
+# scramble('cedewaraaossoqqyt', 'codewars') == true
+# scramble('katas', 'steak') == false
+# scramble('scriptjava', 'javascript') == true
+# scramble('scriptingjava', 'javascript') == true
 
 
 =begin
@@ -1189,20 +1194,24 @@ C
 #   0
 # end
 
-# p longest_palindrome("a") == 1
-# p longest_palindrome("aa") == 2
-# p longest_palindrome("baa") == 2
-# p longest_palindrome("aab") == 2
-# p longest_palindrome("baabcd") == 4
-# p longest_palindrome("baablkj12345432133d") == 9
-# p longest_palindrome("") == 0
+# Find the length of the longest substring in a given string that is the same
+# in reverse; in other words, find the length of the longest palindrome substring
+# in a a given string. If the length of the input string is 0, return 0.
 
-=begin
+# longest_palindrome("a") == 1
+# longest_palindrome("aa") == 2
+# longest_palindrome("baa") == 2
+# longest_palindrome("aab") == 2
+# longest_palindrome("baabcd") == 4
+# longest_palindrome("baablkj12345432133d") == 9
+# longest_palindrome("") == 0
 
-P
-  - given an array of integers, find an index where the sum of integers to the left
-    is equal to the sum of the integers on the right...........did this one, lol
-=end 
+# =begin
+
+# P
+#   - given an array of integers, find an index where the sum of integers to the left
+#     is equal to the sum of the integers on the right...........did this one, lol
+# =end 
 
 =begin
 
@@ -1233,3 +1242,163 @@ P
 # end
 
 # string_transformer('Example string')
+
+
+
+
+
+
+
+#------------------------------------------------------------------------------
+
+
+
+
+
+# 1
+
+# Write a method that returns true if a portion of the first input string's characters
+# can be rearranged to match the second input string; return false otherwise.
+
+# scramble('javaass', 'jjss') == false
+# scramble('rkqodlw', 'world') == true
+# scramble('cedewaraaossoqqyt', 'codewars') == true
+# scramble('katas', 'steak') == false
+# scramble('scriptjava', 'javascript') == true
+# scramble('scriptingjava', 'javascript') == true
+
+
+
+
+
+# # 2
+
+# # Find the length of the longest substring in a given string that is the same
+# # in reverse; in other words, find the length of the longest palindrome substring
+# # in a a given string. If the length of the input string is 0, return 0.
+
+# longest_palindrome("a") == 1
+# longest_palindrome("aa") == 2
+# longest_palindrome("baa") == 2
+# longest_palindrome("aab") == 2
+# longest_palindrome("baabcd") == 4
+# longest_palindrome("baablkj12345432133d") == 9
+# longest_palindrome("") == 0
+
+
+
+
+
+# # 3
+
+# # Complete the method that takes a hash of users, and find the nexus: 
+# # the user whose Codewrank is the closest or equal to their honor. 
+# # Return the rank of this user. 
+# # For each user, the key is the rank and the value is the honor.
+
+# # If nobody has an exact rank/honor match, return the rank of the user who comes closest. 
+# # If there are several users who come closest, return the the lowest rank (numeric value). 
+# # The hash will not necessarily contain consecutive rank numbers; 
+# # return the best match from the ranks provided.
+
+# # Example
+# #         rank    honor
+# # users = {  1  =>  93,
+# #           10  =>  55,
+# #           15  =>  30,
+# #           20  =>  19,    <--- nexus
+# #           23  =>  11,
+# #           30  =>   2 }
+          
+# p nexus({1 => 3, 3 => 3, 5 => 1}) == 3
+# p nexus({1 => 10, 2 => 6, 3 => 4, 5 => 1}) == 3
+# p nexus({1=>10000, 10=>1000, 100=>100, 1000=>10, 10000=>1}) == 100
+# p nexus({1=>9999, 10=>999, 100=>99, 1000=>9, 10000=>0}) == 100
+# p nexus({5=>30, 10=>25, 15=>20, 20=>15, 25=>10, 30=>5}) == 15
+# p nexus({30=>5, 25=>10, 20=>15, 15=>20, 10=>25, 5=>30}) == 15
+
+
+
+
+
+# # 4
+
+# # Given two strings, return true if there is a substring that appears in both strings; 
+# # return false otherwise. Substrings must be a minimum of two letters long.
+
+# substring_test('Something', 'Fun') == false
+# substring_test('Something', 'Home') == true
+# substring_test('Something', '') == false
+# substring_test('', 'Something') == false
+# substring_test('BANANA', 'banana') == true
+# substring_test('test', 'lllt') == false
+# substring_test('', '') == false
+# substring_test('1234567', '541265') == true
+# substring_test('supercalifragilisticexpialidocious', 'SoundOfItIsAtriciou') == true
+
+
+
+
+
+#5
+
+# Write a method that takes a positive integer and returns the next biggest
+# number formed by the same digits; return -1 if no such number exists.
+
+
+=begin
+
+P
+  - write a method that takes a positive integer and returns the next biggest
+    number formed by the same digits; return -1 if no such number exists
+  - input: an integer
+  - output: an integer (next highest per criteria, or -1)
+    - note: ~
+E
+  - see prompt
+D
+  - array
+A
+  > create all possible numbers from digits
+    - potential method: permutation
+    - initialize variable to array of digits from input 
+    - invoke permutation, pass in size of digits array as arg, chain to_a
+      - initialize a variable to the return value to save
+    - transform each sub-array to an integer
+      - for each transformation:
+        - join the subarray
+        - convert to integer
+        - save result
+  > sort numbers from lowest to highest
+  > evaluate each number
+    - iterate over numbers
+      - for each iteration:
+        - return number if it is higher than input
+  > return -1
+
+
+=end
+
+def next_num(integer)
+  
+  digits = integer.digits
+  
+  numbers = digits.permutation(digits.size).to_a
+  
+  numbers.map! { |subarray| subarray.join.to_i }
+  
+  numbers.sort!
+  
+  numbers.each { |number| return number if number > integer }
+  
+  -1
+end
+  
+
+p next_num(12) == 21
+p next_num(513) == 531
+p next_num(2017) == 2071
+p next_num(9) == -1
+p next_num(111) == -1
+p next_num(531) == -1
+
