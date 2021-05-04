@@ -1379,26 +1379,92 @@ A
 
 =end
 
-def next_num(integer)
+
+
+
+# def next_num(integer)
   
-  digits = integer.digits
+#   digits = integer.digits
   
-  numbers = digits.permutation(digits.size).to_a
+#   numbers = digits.permutation(digits.size).to_a
   
-  numbers.map! { |subarray| subarray.join.to_i }
+#   numbers.map! { |subarray| subarray.join.to_i }
   
-  numbers.sort!
+#   numbers.sort!
   
-  numbers.each { |number| return number if number > integer }
+#   numbers.each { |number| return number if number > integer }
   
-  -1
+#   -1
+# end
+  
+
+# p next_num(12) == 21
+# p next_num(513) == 531
+# p next_num(2017) == 2071
+# p next_num(9) == -1
+# p next_num(111) == -1
+# p next_num(531) == -1
+
+
+
+# # Given two strings, return true if there is a substring that appears in both strings; 
+# # return false otherwise. Substrings must be a minimum of two letters long.
+
+
+
+=begin
+
+P
+  - given two strings, return true if there is a substrings that appears in both strings;
+    return false otherwise. substrings must be a minimum of two letters long.
+  - input: two strings
+  - output: boolean
+    - note: no specification made regarding mutation
+    - note: empty strings for either input should return false
+    - note: must be case insensitive
+    - note: do not need to validate input
+    - note: ~
+E
+  - see prompt
+D
+  - ~
+A
+  > create all two-character substrings for one of the strings
+    - possible method: each_cons
+    - create an array of characters and save to a variable
+    - initialize variable to return value of calling each_cons on characters array, pass in 2 as arg, chain to_a call
+    - transform all substrings
+      - for each transformation:
+        - join and downcase
+    - downcase the other input string
+  > evaluate each string
+    - iterate over each substring
+      - for each iteration:
+        - return true if the other string includes the substring
+  > return false
+=end
+
+
+def substring_test(string_1, string_2)
+  str1_letters = string_1.chars
+  
+  str1_substrings = str1_letters.each_cons(2).to_a
+  
+  str1_substrings.map! { |subarray| subarray.join.downcase }
+  
+  string_2.downcase!
+  
+  str1_substrings.each { |substring| return true if string_2.include?(substring) }
+  
+  false
 end
-  
 
-p next_num(12) == 21
-p next_num(513) == 531
-p next_num(2017) == 2071
-p next_num(9) == -1
-p next_num(111) == -1
-p next_num(531) == -1
-
+ p substring_test('Something', 'Fun') == false
+p substring_test('Something', 'Home') == true
+p substring_test('Something', '') == false
+p substring_test('', 'Something') == false
+p substring_test('BANANA', 'banana') == true
+p substring_test('test', 'lllt') == false
+p substring_test('', '') == false
+p substring_test('1234567', '541265') == true
+p substring_test('supercalifragilisticexpialidocious', 'SoundOfItIsAtriciou') == true
